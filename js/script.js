@@ -47,14 +47,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const deadline = '2023-05-20';
 
     function getTimeRemaining(endtime) {
-        const t = Date.parse(endtime) - Date.parse(new Date()), 
+        let days, hours, minutes, seconds;
+        const t = Date.parse(endtime) - Date.parse(new Date()); 
         // указываем разницу между конечным временем и текущим (создавая new Date) 
+
+        if (t <= 0) {
+            days = 0,
+            hours = 0,
+            minutes = 0,
+            seconds = 0;
+        } else {
             days = Math.floor(t / (1000*60*60*24)), //выражение в скобках это расчет количества милисек в сутках
             hours = Math.floor((t / (1000*60*60)) % 24), 
             /* полученное количество часов в скобках делим на 24 (получаем остаток от деления), 
             чтобы получить количсетво часов не более 24 ч в сутках */ 
             minutes = Math.floor((t / 1000 / 60) % 60),
             seconds = Math.floor((t / 1000) % 60);
+        }
 
         return {
             'total': t,
